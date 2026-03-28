@@ -45,6 +45,7 @@ class ResultsTable extends LitElement {
                   </td>
                   <td class="p-3 text-right font-mono text-gray-600">
                     ${r.metrics.memory_before_kb && r.metrics.memory_after_kb
+                      && r.metrics.memory_after_kb > r.metrics.memory_before_kb
                       ? (r.metrics.memory_after_kb - r.metrics.memory_before_kb).toLocaleString()
                       : '—'}
                   </td>

@@ -39,6 +39,7 @@ defineEmits<{
             <td class="p-3 text-right font-mono text-blue-600">{{ r.metrics.duration_ms.toFixed(2) }}</td>
             <td class="p-3 text-right font-mono text-gray-600">
               {{ r.metrics.memory_before_kb && r.metrics.memory_after_kb
+                && r.metrics.memory_after_kb > r.metrics.memory_before_kb
                 ? (r.metrics.memory_after_kb - r.metrics.memory_before_kb).toLocaleString()
                 : '—' }}
             </td>
