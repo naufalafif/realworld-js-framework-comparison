@@ -1,7 +1,7 @@
 interface AppEntry {
   name: string
   port: number
-  framework: 'react' | 'vue' | 'svelte'
+  framework: 'react' | 'vue' | 'svelte' | 'solid'
   type: 'perf' | 'crud' | 'xterm'
   description: string
 }
@@ -21,12 +21,15 @@ const apps: AppEntry[] = [
   { name: 'React Perf', port: 5101, framework: 'react', type: 'perf', description: '10k rows, deep tree, rapid updates' },
   { name: 'Vue Perf', port: 5102, framework: 'vue', type: 'perf', description: '10k rows, deep tree, rapid updates' },
   { name: 'Svelte Perf', port: 5103, framework: 'svelte', type: 'perf', description: '10k rows, deep tree, rapid updates' },
+  { name: 'Solid Perf', port: 5104, framework: 'solid', type: 'perf', description: 'Fine-grained reactivity, no VDOM' },
   { name: 'React CRUD', port: 5201, framework: 'react', type: 'crud', description: 'React Router, Zustand, TanStack Query' },
   { name: 'Vue CRUD', port: 5202, framework: 'vue', type: 'crud', description: 'Vue Router, Pinia, TanStack Vue Query' },
   { name: 'Svelte CRUD', port: 5203, framework: 'svelte', type: 'crud', description: 'SvelteKit, Svelte stores, native bindings' },
+  { name: 'Solid CRUD', port: 5204, framework: 'solid', type: 'crud', description: '@solidjs/router, createSignal, Zod' },
   { name: 'React Terminal', port: 5301, framework: 'react', type: 'xterm', description: 'xterm.js + WebSocket' },
   { name: 'Vue Terminal', port: 5302, framework: 'vue', type: 'xterm', description: 'xterm.js + WebSocket' },
   { name: 'Svelte Terminal', port: 5303, framework: 'svelte', type: 'xterm', description: 'xterm.js + WebSocket' },
+  { name: 'Solid Terminal', port: 5304, framework: 'solid', type: 'xterm', description: 'xterm.js + WebSocket' },
 ]
 
 const frameworkIcons: Record<string, { svg: string; svgLarge: string; color: string; name: string }> = {
@@ -47,6 +50,12 @@ const frameworkIcons: Record<string, { svg: string; svgLarge: string; color: str
     svgLarge: `<svg viewBox="0 0 98.1 118" width="24" height="24"><path d="M91.8 15.6C80.9-.1 59.2-4.7 43.6 5.2L16.1 22.8C8.6 27.5 3.4 35.2 1.9 43.9c-1.3 7.3-.2 14.8 3.3 21.3-2.4 3.6-4 7.6-4.7 11.8-1.6 8.9.5 18.1 5.7 25.4 11 15.7 32.6 20.3 48.2 10.4l27.5-17.6c7.5-4.7 12.7-12.4 14.2-21.1 1.3-7.3.2-14.8-3.3-21.3 2.4-3.6 4-7.6 4.7-11.8 1.7-9-.4-18.2-5.7-25.4" fill="#FF3E00"/><path d="M40.9 103.9a22.7 22.7 0 0 1-9.3-25.5l.6-2.1 1.5 1a50 50 0 0 0 15 7.5l1.4.4-.1 1.4a6.9 6.9 0 0 0 1.2 4.4 7 7 0 0 0 8.6 2.7 6.5 6.5 0 0 0 1.9-1l27.5-17.6a6.3 6.3 0 0 0 2.8-4.5 6.7 6.7 0 0 0-1.2-4.9 7 7 0 0 0-8.6-2.7 6.5 6.5 0 0 0-1.9 1l-10.5 6.7a21.3 21.3 0 0 1-6 3.2 22.4 22.4 0 0 1-17.4-.5 22.7 22.7 0 0 1-9.3-25.5 20.6 20.6 0 0 1 9.2-14.5L74.2 16a21.3 21.3 0 0 1 6-3.2c8.6-3.2 18.1-.6 24.4 6.3a22.7 22.7 0 0 1 3.3 23.4l-.6 2.1-1.5-1a50 50 0 0 0-15-7.5l-1.4-.4.1-1.4a6.9 6.9 0 0 0-1.2-4.4 7 7 0 0 0-8.6-2.7 6.5 6.5 0 0 0-1.9 1L50.3 46.3a6.3 6.3 0 0 0-2.8 4.5c-.2 1.9.3 3.5 1.2 4.9a7 7 0 0 0 8.6 2.7 6.5 6.5 0 0 0 1.9-1l10.5-6.7a21.3 21.3 0 0 1 6-3.2 22.4 22.4 0 0 1 17.4.5 22.7 22.7 0 0 1 9.3 25.5 20.6 20.6 0 0 1-9.2 14.5l-27.5 17.6a21.3 21.3 0 0 1-6 3.2 22.2 22.2 0 0 1-8.8 1" fill="#fff"/></svg>`,
     color: 'text-orange-400',
     name: 'Svelte',
+  },
+  solid: {
+    svg: `<svg viewBox="0 0 166 155.3" width="20" height="20"><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" fill="#76b3e1"/><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="27.5" y1="3" x2="152" y2="63.5"><stop offset=".1" stop-color="#76b3e1"/><stop offset=".3" stop-color="#dcf0fd"/><stop offset="1" stop-color="#76b3e1"/></linearGradient><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" opacity=".3" fill="url(#a)"/><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" fill="#518ac8"/><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="95.8" y1="32.6" x2="74" y2="105.2"><stop offset="0" stop-color="#76b3e1"/><stop offset=".5" stop-color="#4377bb"/><stop offset="1" stop-color="#1f3b77"/></linearGradient><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" opacity=".3" fill="url(#b)"/></svg>`,
+    svgLarge: `<svg viewBox="0 0 166 155.3" width="24" height="24"><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" fill="#76b3e1"/><linearGradient id="a2" gradientUnits="userSpaceOnUse" x1="27.5" y1="3" x2="152" y2="63.5"><stop offset=".1" stop-color="#76b3e1"/><stop offset=".3" stop-color="#dcf0fd"/><stop offset="1" stop-color="#76b3e1"/></linearGradient><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" opacity=".3" fill="url(#a2)"/><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" fill="#518ac8"/><linearGradient id="b2" gradientUnits="userSpaceOnUse" x1="95.8" y1="32.6" x2="74" y2="105.2"><stop offset="0" stop-color="#76b3e1"/><stop offset=".5" stop-color="#4377bb"/><stop offset="1" stop-color="#1f3b77"/></linearGradient><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" opacity=".3" fill="url(#b2)"/></svg>`,
+    color: 'text-blue-300',
+    name: 'Solid',
   },
 }
 
@@ -82,6 +91,7 @@ function frameworkLegend(): string {
     <span class="flex items-center gap-1.5">${frameworkIcons.react.svg} <span class="text-sky-400">React</span></span>
     <span class="flex items-center gap-1.5">${frameworkIcons.vue.svg} <span class="text-emerald-400">Vue</span></span>
     <span class="flex items-center gap-1.5">${frameworkIcons.svelte.svg} <span class="text-orange-400">Svelte</span></span>
+    <span class="flex items-center gap-1.5">${frameworkIcons.solid.svg} <span class="text-blue-300">Solid</span></span>
   </div>`
 }
 
@@ -95,7 +105,7 @@ function render() {
       <div class="max-w-6xl mx-auto px-6 py-10">
         <div class="mb-10">
           <h1 class="text-4xl font-bold text-white mb-2">JS Framework Comparison</h1>
-          <p class="text-gray-400 text-lg mb-3">React vs Vue vs Svelte — 9 apps, 3 categories, real benchmarks</p>
+          <p class="text-gray-400 text-lg mb-3">React vs Vue vs Svelte vs Solid — 12 apps, 3 categories, real benchmarks</p>
           ${frameworkLegend()}
         </div>
 
@@ -129,9 +139,10 @@ function render() {
                   <span class="flex items-center gap-1">${frameworkIcons.react.svg} Blue</span>
                   <span class="flex items-center gap-1">${frameworkIcons.vue.svg} Green</span>
                   <span class="flex items-center gap-1">${frameworkIcons.svelte.svg} Orange</span>
+                  <span class="flex items-center gap-1">${frameworkIcons.solid.svg} Blue</span>
                 </div>
               </div>
-              <div class="grid grid-cols-3 gap-4">
+              <div class="grid grid-cols-4 gap-4">
                 ${typeApps.map((app) => {
                   const fw = frameworkIcons[app.framework]
                   return `
@@ -172,13 +183,13 @@ function render() {
               return `
                 <button onclick="openAll([${typeApps.map((a) => a.port).join(',')}])"
                   class="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
-                  Open all 3 ${label} apps
+                  Open all 4 ${label} apps
                 </button>
               `
             }).join('')}
             <button onclick="openAll([${apps.map((a) => a.port).join(',')}])"
               class="px-4 py-2 bg-blue-900/50 border border-blue-800 rounded-lg text-sm text-blue-300 hover:bg-blue-800 hover:text-white transition-colors">
-              Open all 9 apps
+              Open all 12 apps
             </button>
           </div>
         </div>

@@ -19,14 +19,17 @@ const services: Service[] = [
   { name: 'perf-react', filter: '@comparison/perf-react', color: '\x1b[34m' },
   { name: 'perf-vue', filter: '@comparison/perf-vue', color: '\x1b[32m' },
   { name: 'perf-svelte', filter: '@comparison/perf-svelte', color: '\x1b[31m' },
+  { name: 'perf-solid', filter: '@comparison/perf-solid', color: '\x1b[35m' },
   // CRUD
   { name: 'crud-react', filter: '@comparison/crud-react', color: '\x1b[34m' },
   { name: 'crud-vue', filter: '@comparison/crud-vue', color: '\x1b[32m' },
   { name: 'crud-svelte', filter: '@comparison/crud-svelte', color: '\x1b[31m' },
+  { name: 'crud-solid', filter: '@comparison/crud-solid', color: '\x1b[35m' },
   // XTerm
   { name: 'xterm-react', filter: '@comparison/xterm-react', color: '\x1b[34m' },
   { name: 'xterm-vue', filter: '@comparison/xterm-vue', color: '\x1b[32m' },
   { name: 'xterm-svelte', filter: '@comparison/xterm-svelte', color: '\x1b[31m' },
+  { name: 'xterm-solid', filter: '@comparison/xterm-solid', color: '\x1b[35m' },
 ]
 
 const RESET = '\x1b[0m'
@@ -53,11 +56,11 @@ console.log(`  Dashboard:    http://localhost:1355`)
 console.log(`  JSON Server:  http://localhost:3100`)
 console.log(`  PTY Server:   ws://localhost:3200`)
 console.log('')
-console.log(`  Perf:   React :5101  Vue :5102  Svelte :5103`)
-console.log(`  CRUD:   React :5201  Vue :5202  Svelte :5203`)
-console.log(`  XTerm:  React :5301  Vue :5302  Svelte :5303`)
+console.log(`  Perf:   React :5101  Vue :5102  Svelte :5103  Solid :5104`)
+console.log(`  CRUD:   React :5201  Vue :5202  Svelte :5203  Solid :5204`)
+console.log(`  XTerm:  React :5301  Vue :5302  Svelte :5303  Solid :5304`)
 console.log('')
-console.log(`${DIM}  Starting 12 services...${RESET}\n`)
+console.log(`${DIM}  Starting 15 services...${RESET}\n`)
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -90,9 +93,9 @@ async function startAll() {
   }
   await sleep(1000)
 
-  // Start remaining apps in batches of 3 (one per framework) with delays
-  for (let i = 3; i < services.length; i += 3) {
-    const batch = services.slice(i, i + 3)
+  // Start remaining apps in batches of 4 (one per framework) with delays
+  for (let i = 3; i < services.length; i += 4) {
+    const batch = services.slice(i, i + 4)
     for (const service of batch) {
       startService(service)
       await sleep(500)

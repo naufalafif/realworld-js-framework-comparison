@@ -1,7 +1,7 @@
 // Benchmark result types
 export interface BenchmarkResult {
   name: string
-  framework: 'react' | 'vue' | 'svelte'
+  framework: 'react' | 'vue' | 'svelte' | 'solid'
   app: 'perf-stress' | 'crud' | 'xterm'
   metrics: {
     duration_ms: number
