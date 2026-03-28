@@ -14,9 +14,4 @@ test.describe('Dashboard (:1355)', () => {
     const links = page.locator('a[href*="localhost"]')
     await expect(links).toHaveCount(12)
   })
-
-  test('has quick compare buttons', async ({ page }) => {
-    await page.goto('http://localhost:1355')
-    await expect(page.locator('button:has-text("Open all 12 apps")')).toBeVisible()
-  })
 })

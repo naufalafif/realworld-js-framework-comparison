@@ -173,27 +173,6 @@ function render() {
           `
         }).join('')}
 
-        <!-- Quick Actions -->
-        <div class="mb-10">
-          <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Quick Compare</h2>
-          <div class="flex flex-wrap gap-3">
-            ${types.map((type) => {
-              const typeApps = apps.filter((a) => a.type === type)
-              const { label } = typeLabels[type]
-              return `
-                <button data-ports="${typeApps.map((a) => a.port).join(',')}"
-                  class="open-all-btn px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
-                  Open all 4 ${label} apps
-                </button>
-              `
-            }).join('')}
-            <button data-ports="${apps.map((a) => a.port).join(',')}"
-              class="open-all-btn px-4 py-2 bg-blue-900/50 border border-blue-800 rounded-lg text-sm text-blue-300 hover:bg-blue-800 hover:text-white transition-colors">
-              Open all 12 apps
-            </button>
-          </div>
-        </div>
-
         <!-- Footer -->
         <div class="border-t border-gray-800 pt-6 text-xs text-gray-600">
           <p>Dashboard running on :1355 — Start all services with <code class="bg-gray-800 px-1.5 py-0.5 rounded text-gray-400">pnpm dev:all</code></p>
@@ -216,13 +195,3 @@ function render() {
 }
 
 render()
-
-// Event delegation for "Open all" buttons
-document.addEventListener('click', (e) => {
-  const btn = (e.target as HTMLElement).closest('.open-all-btn') as HTMLElement | null
-  if (btn?.dataset.ports) {
-    btn.dataset.ports.split(',').forEach((port) => {
-      window.open(`http://localhost:${port}`, '_blank')
-    })
-  }
-})
