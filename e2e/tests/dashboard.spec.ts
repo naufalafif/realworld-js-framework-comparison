@@ -10,8 +10,8 @@ test.describe('Dashboard (:1355)', () => {
     await expect(page.getByRole('heading', { name: /CRUD Task Manager/ })).toBeVisible()
     await expect(page.getByRole('heading', { name: /Terminal Streamer/ })).toBeVisible()
 
-    // Check all 12 app cards (4 frameworks × 3 app types)
+    // Check all 18 app cards (6 frameworks × 3 app types)
     const links = page.locator('a[href*="localhost"]')
-    await expect(links).toHaveCount(12)
+    await expect(links).toHaveCount(18)
   })
 })

@@ -1,7 +1,7 @@
 interface AppEntry {
   name: string
   port: number
-  framework: 'react' | 'vue' | 'svelte' | 'solid'
+  framework: 'react' | 'vue' | 'svelte' | 'solid' | 'preact' | 'lit'
   type: 'perf' | 'crud' | 'xterm'
   description: string
 }
@@ -22,14 +22,20 @@ const apps: AppEntry[] = [
   { name: 'Vue Perf', port: 5102, framework: 'vue', type: 'perf', description: '10k rows, deep tree, rapid updates' },
   { name: 'Svelte Perf', port: 5103, framework: 'svelte', type: 'perf', description: '10k rows, deep tree, rapid updates' },
   { name: 'Solid Perf', port: 5104, framework: 'solid', type: 'perf', description: 'Fine-grained reactivity, no VDOM' },
+  { name: 'Preact Perf', port: 5105, framework: 'preact', type: 'perf', description: 'React API in 3KB, no VDOM overhead' },
+  { name: 'Lit Perf', port: 5106, framework: 'lit', type: 'perf', description: 'Web Components, tagged templates' },
   { name: 'React CRUD', port: 5201, framework: 'react', type: 'crud', description: 'React Router, Zustand, TanStack Query' },
   { name: 'Vue CRUD', port: 5202, framework: 'vue', type: 'crud', description: 'Vue Router, Pinia, TanStack Vue Query' },
   { name: 'Svelte CRUD', port: 5203, framework: 'svelte', type: 'crud', description: 'SvelteKit, Svelte stores, native bindings' },
   { name: 'Solid CRUD', port: 5204, framework: 'solid', type: 'crud', description: '@solidjs/router, createSignal, Zod' },
+  { name: 'Preact CRUD', port: 5205, framework: 'preact', type: 'crud', description: 'preact-router, @preact/signals, Zod' },
+  { name: 'Lit CRUD', port: 5206, framework: 'lit', type: 'crud', description: 'Hash router, LitElement, Zod' },
   { name: 'React Terminal', port: 5301, framework: 'react', type: 'xterm', description: 'xterm.js + WebSocket' },
   { name: 'Vue Terminal', port: 5302, framework: 'vue', type: 'xterm', description: 'xterm.js + WebSocket' },
   { name: 'Svelte Terminal', port: 5303, framework: 'svelte', type: 'xterm', description: 'xterm.js + WebSocket' },
   { name: 'Solid Terminal', port: 5304, framework: 'solid', type: 'xterm', description: 'xterm.js + WebSocket' },
+  { name: 'Preact Terminal', port: 5305, framework: 'preact', type: 'xterm', description: 'xterm.js + WebSocket' },
+  { name: 'Lit Terminal', port: 5306, framework: 'lit', type: 'xterm', description: 'xterm.js + WebSocket' },
 ]
 
 const frameworkIcons: Record<string, { svg: string; svgLarge: string; color: string; name: string }> = {
@@ -56,6 +62,18 @@ const frameworkIcons: Record<string, { svg: string; svgLarge: string; color: str
     svgLarge: `<svg viewBox="0 0 166 155.3" width="24" height="24"><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" fill="#76b3e1"/><linearGradient id="a2" gradientUnits="userSpaceOnUse" x1="27.5" y1="3" x2="152" y2="63.5"><stop offset=".1" stop-color="#76b3e1"/><stop offset=".3" stop-color="#dcf0fd"/><stop offset="1" stop-color="#76b3e1"/></linearGradient><path d="M163 35S110-4 69 5 15 41 15 41s-23 28-7 61 68 44 68 44 47 10 73-11 14-49 14-49" opacity=".3" fill="url(#a2)"/><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" fill="#518ac8"/><linearGradient id="b2" gradientUnits="userSpaceOnUse" x1="95.8" y1="32.6" x2="74" y2="105.2"><stop offset="0" stop-color="#76b3e1"/><stop offset=".5" stop-color="#4377bb"/><stop offset="1" stop-color="#1f3b77"/></linearGradient><path d="M52 35S-5 74 8 107s68 44 68 44 47 10 73-11 14-49 14-49-48-39-89-30-22 26-22 26" opacity=".3" fill="url(#b2)"/></svg>`,
     color: 'text-blue-300',
     name: 'Solid',
+  },
+  preact: {
+    svg: `<svg viewBox="0 0 256 296" width="20" height="20"><path d="M128 0L256 73.9V222.1L128 296L0 222.1V73.9L128 0z" fill="#673AB8"/><path d="M34.865 220.478c17.016 21.78 71.095 5.185 122.15-34.704s81.988-88.196 64.972-109.975c-17.016-21.78-71.095-5.185-122.15 34.704S17.849 198.699 34.865 220.478z" stroke="#fff" stroke-width="16" fill="none"/><path d="M220.875 220.478c-17.016 21.78-71.095 5.185-122.15-34.704S16.737 97.578 33.753 75.799c17.016-21.78 71.095-5.185 122.15 34.704s81.988 88.196 64.972 109.975z" stroke="#fff" stroke-width="16" fill="none"/><circle cx="128" cy="148" r="17" fill="#fff"/></svg>`,
+    svgLarge: `<svg viewBox="0 0 256 296" width="24" height="24"><path d="M128 0L256 73.9V222.1L128 296L0 222.1V73.9L128 0z" fill="#673AB8"/><path d="M34.865 220.478c17.016 21.78 71.095 5.185 122.15-34.704s81.988-88.196 64.972-109.975c-17.016-21.78-71.095-5.185-122.15 34.704S17.849 198.699 34.865 220.478z" stroke="#fff" stroke-width="16" fill="none"/><path d="M220.875 220.478c-17.016 21.78-71.095 5.185-122.15-34.704S16.737 97.578 33.753 75.799c17.016-21.78 71.095-5.185 122.15 34.704s81.988 88.196 64.972 109.975z" stroke="#fff" stroke-width="16" fill="none"/><circle cx="128" cy="148" r="17" fill="#fff"/></svg>`,
+    color: 'text-purple-400',
+    name: 'Preact',
+  },
+  lit: {
+    svg: `<svg viewBox="0 0 160 200" width="20" height="20"><path d="M40 120l40-120 40 80-40 40-20-20z" fill="#00E8FF"/><path d="M40 120l20 20 40-40v80l-60-40z" fill="#283198"/><path d="M100 180v-80l40-40v80z" fill="#324FFF"/><path d="M40 120l60 60v-80l-40 40z" fill="#0FF"/></svg>`,
+    svgLarge: `<svg viewBox="0 0 160 200" width="24" height="24"><path d="M40 120l40-120 40 80-40 40-20-20z" fill="#00E8FF"/><path d="M40 120l20 20 40-40v80l-60-40z" fill="#283198"/><path d="M100 180v-80l40-40v80z" fill="#324FFF"/><path d="M40 120l60 60v-80l-40 40z" fill="#0FF"/></svg>`,
+    color: 'text-cyan-400',
+    name: 'Lit',
   },
 }
 
@@ -113,6 +131,8 @@ function frameworkLegend(): string {
     <span class="flex items-center gap-1.5">${frameworkIcons.vue.svg} <span class="text-emerald-400">Vue</span></span>
     <span class="flex items-center gap-1.5">${frameworkIcons.svelte.svg} <span class="text-orange-400">Svelte</span></span>
     <span class="flex items-center gap-1.5">${frameworkIcons.solid.svg} <span class="text-blue-300">Solid</span></span>
+    <span class="flex items-center gap-1.5">${frameworkIcons.preact.svg} <span class="text-purple-400">Preact</span></span>
+    <span class="flex items-center gap-1.5">${frameworkIcons.lit.svg} <span class="text-cyan-400">Lit</span></span>
   </div>`
 }
 
@@ -126,7 +146,7 @@ function render() {
       <div class="max-w-6xl mx-auto px-6 py-10">
         <div class="mb-10">
           <h1 class="text-4xl font-bold text-white mb-2">JS Framework Comparison</h1>
-          <p class="text-gray-400 text-lg mb-3">React vs Vue vs Svelte vs Solid — 12 apps, 3 categories, real benchmarks</p>
+          <p class="text-gray-400 text-lg mb-3">React vs Vue vs Svelte vs Solid vs Preact vs Lit — 18 apps, 3 categories, real benchmarks</p>
           ${frameworkLegend()}
         </div>
 
@@ -158,7 +178,7 @@ function render() {
                 </h2>
                 <p class="text-sm text-gray-500 mt-1">${t.subtitle}</p>
               </div>
-              <div class="grid grid-cols-4 gap-4">
+              <div class="grid grid-cols-6 gap-4">
                 ${typeApps.map((app) => {
                   const fw = frameworkIcons[app.framework]
                   return `

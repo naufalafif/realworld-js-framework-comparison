@@ -5,6 +5,8 @@ const frameworks = [
   { name: 'Vue', port: 5302 },
   { name: 'Svelte', port: 5303 },
   { name: 'Solid', port: 5304 },
+  { name: 'Preact', port: 5305 },
+  { name: 'Lit', port: 5306 },
 ]
 
 for (const { name, port } of frameworks) {
