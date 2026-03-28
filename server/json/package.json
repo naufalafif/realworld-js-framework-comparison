@@ -1,0 +1,15 @@
+{
+  "name": "@comparison/server-json",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "json-server --port 3100 db.json"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.8.0"
+  }
+}

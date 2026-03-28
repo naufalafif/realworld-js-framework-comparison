@@ -1,0 +1,30 @@
+{
+  "name": "js-framework-comparison",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "chmod +x node_modules/.pnpm/node-pty@*/node_modules/node-pty/prebuilds/darwin-*/spawn-helper 2>/dev/null || true",
+    "dev:server:json": "pnpm --filter @comparison/server-json dev",
+    "dev:server:pty": "pnpm --filter @comparison/server-pty dev",
+    "dev:perf:react": "pnpm --filter @comparison/perf-react dev",
+    "dev:perf:vue": "pnpm --filter @comparison/perf-vue dev",
+    "dev:perf:svelte": "pnpm --filter @comparison/perf-svelte dev",
+    "dev:crud:react": "pnpm --filter @comparison/crud-react dev",
+    "dev:crud:vue": "pnpm --filter @comparison/crud-vue dev",
+    "dev:crud:svelte": "pnpm --filter @comparison/crud-svelte dev",
+    "dev:xterm:react": "pnpm --filter @comparison/xterm-react dev",
+    "dev:xterm:vue": "pnpm --filter @comparison/xterm-vue dev",
+    "dev:xterm:svelte": "pnpm --filter @comparison/xterm-svelte dev",
+    "dev:dashboard": "pnpm --filter @comparison/dashboard dev",
+    "dev:all": "tsx scripts/dev-all.ts",
+    "build:all": "pnpm -r build",
+    "bench": "pnpm --filter @comparison/bench start",
+    "e2e": "pnpm --filter @comparison/e2e test",
+    "e2e:ui": "pnpm --filter @comparison/e2e test:ui"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "prettier": "^3.6.0",
+    "tsx": "^4.0.0"
+  }
+}

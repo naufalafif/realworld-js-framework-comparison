@@ -1,0 +1,11 @@
+packages:
+  - "shared"
+  - "server/*"
+  - "bench"
+  - "dashboard"
+  - "e2e"
+  - "apps/*/*"
+onlyBuiltDependencies:
+  - esbuild
+  - node-pty
+  - vue-demi
