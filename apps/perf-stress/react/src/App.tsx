@@ -18,12 +18,12 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        <a href="http://localhost:1355" className="text-sm text-gray-400 hover:text-gray-600 mb-1">← Dashboard</a>
         <div className="flex items-center gap-3 mb-2">
           <span dangerouslySetInnerHTML={{ __html: REACT_ICON }} />
           <h1 className="text-3xl font-bold text-gray-900">
             Performance Stress Test — React
           </h1>
+          <a href="http://localhost:1355" className="ml-auto text-sm text-gray-400 hover:text-gray-600">← Dashboard</a>
         </div>
         <p className="text-gray-500 mb-6">React 19 • Vite • TypeScript</p>
 

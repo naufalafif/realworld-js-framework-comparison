@@ -18,12 +18,12 @@ export default function App() {
   return (
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-7xl mx-auto">
-        <a href="http://localhost:1355" class="text-sm text-gray-400 hover:text-gray-600 mb-1">← Dashboard</a>
         <div class="flex items-center gap-3 mb-2">
           <span innerHTML={SOLID_ICON} />
           <h1 class="text-3xl font-bold text-gray-900">
             Performance Stress Test — Solid
           </h1>
+          <a href="http://localhost:1355" class="ml-auto text-sm text-gray-400 hover:text-gray-600">← Dashboard</a>
         </div>
         <p class="text-gray-500 mb-6">Solid.js 1.9 • Vite • TypeScript</p>
 
