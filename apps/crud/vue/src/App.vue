@@ -26,6 +26,7 @@ const navItems = [
             {{ item.label }}
           </RouterLink>
         </div>
+        <a href="http://localhost:1355" class="ml-auto text-xs text-gray-400 hover:text-gray-600">← Dashboard</a>
       </div>
     </nav>
     <main class="max-w-5xl mx-auto px-6 py-8">

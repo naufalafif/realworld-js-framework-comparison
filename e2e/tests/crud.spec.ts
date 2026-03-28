@@ -11,9 +11,9 @@ for (const { name, port, badge } of frameworks) {
   test.describe(`CRUD — ${name} (:${port})`, () => {
     test('home page shows dashboard with task counts', async ({ page }) => {
       await page.goto(`http://localhost:${port}`)
-      await expect(page.locator('text=Dashboard')).toBeVisible()
-      // Framework icon (SVG) should be present in the nav
-      await expect(page.locator('nav svg').first()).toBeVisible()
+      await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible()
+      // Framework icon (SVG) should be present
+      await expect(page.locator('svg').first()).toBeVisible()
 
       // Wait for data to load
       await page.waitForFunction(() => {

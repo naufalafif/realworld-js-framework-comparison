@@ -8,6 +8,7 @@ export default function App() {
       <div class="flex items-center gap-3 px-6 py-3 bg-gray-800 border-b border-gray-700 shrink-0">
         <h1 class="text-lg font-bold text-green-400">Terminal</h1>
         <span innerHTML={SOLID_ICON} />
+        <a href="http://localhost:1355" class="ml-auto text-xs text-gray-500 hover:text-gray-300">← Dashboard</a>
       </div>
       <div class="flex-1 min-h-0">
         <Terminal wsUrl="ws://localhost:3200" />

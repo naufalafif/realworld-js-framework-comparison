@@ -26,6 +26,7 @@ export default function Layout() {
               </Link>
             ))}
           </div>
+          <a href="http://localhost:1355" className="ml-auto text-xs text-gray-400 hover:text-gray-600">← Dashboard</a>
         </div>
       </nav>
       <main className="max-w-5xl mx-auto px-6 py-8">

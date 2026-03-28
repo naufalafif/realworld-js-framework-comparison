@@ -181,14 +181,14 @@ function render() {
               const typeApps = apps.filter((a) => a.type === type)
               const { label } = typeLabels[type]
               return `
-                <button onclick="openAll([${typeApps.map((a) => a.port).join(',')}])"
-                  class="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
+                <button data-ports="${typeApps.map((a) => a.port).join(',')}"
+                  class="open-all-btn px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">
                   Open all 4 ${label} apps
                 </button>
               `
             }).join('')}
-            <button onclick="openAll([${apps.map((a) => a.port).join(',')}])"
-              class="px-4 py-2 bg-blue-900/50 border border-blue-800 rounded-lg text-sm text-blue-300 hover:bg-blue-800 hover:text-white transition-colors">
+            <button data-ports="${apps.map((a) => a.port).join(',')}"
+              class="open-all-btn px-4 py-2 bg-blue-900/50 border border-blue-800 rounded-lg text-sm text-blue-300 hover:bg-blue-800 hover:text-white transition-colors">
               Open all 12 apps
             </button>
           </div>
@@ -215,9 +215,14 @@ function render() {
   }, 5000)
 }
 
-// Global function for buttons
-;(window as any).openAll = (ports: number[]) => {
-  ports.forEach((port) => window.open(`http://localhost:${port}`, '_blank'))
-}
-
 render()
+
+// Event delegation for "Open all" buttons
+document.addEventListener('click', (e) => {
+  const btn = (e.target as HTMLElement).closest('.open-all-btn') as HTMLElement | null
+  if (btn?.dataset.ports) {
+    btn.dataset.ports.split(',').forEach((port) => {
+      window.open(`http://localhost:${port}`, '_blank')
+    })
+  }
+})

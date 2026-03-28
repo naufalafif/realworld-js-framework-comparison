@@ -6,6 +6,7 @@ export default function App() {
       <div className="flex items-center gap-3 px-6 py-3 bg-gray-800 border-b border-gray-700 shrink-0">
         <h1 className="text-lg font-bold text-green-400">Terminal</h1>
         <span dangerouslySetInnerHTML={{ __html: '<svg viewBox="-11.5 -10.232 23 20.463" width="20" height="20"><circle r="2.05" fill="#61DAFB"/><g stroke="#61DAFB" fill="none" stroke-width="1"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g></svg>' }} />
+        <a href="http://localhost:1355" className="ml-auto text-xs text-gray-500 hover:text-gray-300">← Dashboard</a>
       </div>
       <div className="flex-1 min-h-0">
         <TerminalComponent wsUrl="ws://localhost:3200" />
